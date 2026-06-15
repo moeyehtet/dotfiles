@@ -1,5 +1,18 @@
 if [[ -o interactive ]]; then
-  fastfetch
+  if [[ -n "$TMUX" ]]; then
+    # TMUX ENVIRONMENT
+    # Only run if this is the very first pane in the entire tmux session
+    if [[ $(tmux list-panes -s | wc -l) -eq 1 ]]; then
+      fastfetch
+    fi
+  else
+    # NATIVE TERMINAL ENVIRONMENT (Kitty, etc.)
+    # Use the terminal's Process ID to ensure it only runs once per app instance
+    if [[ ! -f "/tmp/fastfetch_ran_${PPID}" ]]; then
+      fastfetch
+      touch "/tmp/fastfetch_ran_${PPID}"
+    fi
+  fi
 fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -93,3 +106,12 @@ esac
 # pnpm end
 
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin":
+
+function precmd() {
+  print -Pn "\e]0;%n@%m: %~\a"
+}
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/moeye/.local/bin:$PATH"
+export PATH="/home/moeye/.local/bin:$PATH"

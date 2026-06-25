@@ -9,7 +9,7 @@ vim.opt.termguicolors = true
 vim.opt.number = true
 vim.opt.relativenumber = false
 vim.opt.cursorline = true
-vim.opt.wrap = false
+vim.opt.wrap = true
 vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 10
 

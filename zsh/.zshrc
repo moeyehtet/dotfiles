@@ -111,7 +111,9 @@ function precmd() {
   print -Pn "\e]0;%n@%m: %~\a"
 }
 
-
 # Added by Antigravity CLI installer
 export PATH="/home/moeye/.local/bin:$PATH"
 export PATH="/home/moeye/.local/bin:$PATH"
+
+export EDITOR="nvim"
+export VISUAL="nvim"
